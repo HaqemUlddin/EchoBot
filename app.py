@@ -2,6 +2,7 @@ from flask import Flask,request,Response
 from botbuilder.schema import Activity
 from botbuilder.core import BotFrameworkAdapter,BotFrameworkAdapterSettings
 import asyncio
+from botbuilder.core.integration import aiohttp_error_middleware
 
 from Botstart import EchoBot
 
@@ -27,6 +28,12 @@ def messages():
 
     task = loop.create_task(botadapter.process_activity(activity,"",turn_call))
     loop.run_until_complete(task)
+    
+APP = web.Application(middlewares=[aiohttp_error_middleware])
+APP.router.add_post("/api/messages", messages)
 
-if __name__ == '__main__':
-    app.run('localhost',3978)
+if __name__ == "__main__":
+    try:
+        web.run_app(APP, host="localhost", port=3978)
+    except Exception as error:
+        raise error
