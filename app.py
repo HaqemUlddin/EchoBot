@@ -25,7 +25,7 @@ def messages():
     async def turn_call(turn_context):
         await ebot.on_turn(turn_context)
 
-    task = loop.create_task(botadapter.process_activity(activity,"",turn_call))
+    task = loop.create_task(botadapter.process_activity(activity,"e1ohBs3MX14.KnvRQVPiCUUmuk39Sj67g9LAvlHjtfPf9NVli-7BIZQ",turn_call))
     loop.run_until_complete(task)
     
 
